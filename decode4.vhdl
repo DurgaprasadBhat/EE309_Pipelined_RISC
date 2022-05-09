@@ -25,7 +25,7 @@ signal c: std_logic:= (not(instruction_in(15)) and (not(instruction_in(14))) and
 --detect LHI
 signal d: std_logic:= (not(instruction_in(15)) and (not(instruction_in(14))) and (not(instruction_in(13))) and (not (instruction_in(12))));
  
---detecing BEQ
+--detecting BEQ
 signal e: std_logic:= ((instruction_in(15)) and (not(instruction_in(14))) and (not(instruction_in(13))) and (not (instruction_in(12))));
 
 --detecting JAL,JLR

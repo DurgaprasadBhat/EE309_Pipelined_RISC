@@ -6,6 +6,8 @@ entity decode5 is
 port (instruction_in: in std_logic_vector(15 downto 0);
 wr_en: out std_logic; sel : out std_logic);
 end decode5;
+--convention
+-- sel 1 -->data_out, 0 --> out
 
 architecture behav of decode5 is
 signal lw :std_logic:=(not(instruction_in(15)) and ((instruction_in(14))) and ((instruction_in(13))) and ((instruction_in(12))));
