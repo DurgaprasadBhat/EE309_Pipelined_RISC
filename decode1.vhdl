@@ -21,7 +21,7 @@ signal a:  std_logic:=(not(instruction_in(15)) and (not (instruction_in(14))) an
 signal b:  std_logic:=(not(instruction_in(15)) and (not (instruction_in(14))) and (not (instruction_in(13))) and (not (instruction_in(12))));
 
 begin 
-data: process(instruction_in) is 
+data: process(instruction_in, PC_in) is 
 begin
 ra <= instruction_in(11 downto 9);
 rb <= instruction_in(8 downto 6);

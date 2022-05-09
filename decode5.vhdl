@@ -13,7 +13,7 @@ architecture behav of decode5 is
 signal lw :std_logic:=(not(instruction_in(15)) and ((instruction_in(14))) and ((instruction_in(13))) and ((instruction_in(12))));
 signal sw : std_logic:=(not(instruction_in(15)) and ((instruction_in(14))) and (not (instruction_in(13))) and ((instruction_in(12))));
 begin
-process
+cont: process(instruction_in) is
 begin
 if(lw ='1') then
 sel <= '1';

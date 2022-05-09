@@ -23,7 +23,7 @@ signal c: std_logic:= ((instruction_in(15)) and (not(instruction_in(14))) and ((
 signal d: std_logic:= (not(instruction_in(15)) and ((instruction_in(14))) and (not(instruction_in(13))) and ((instruction_in(12))));
 
 begin
-process
+decode: process(instruction_in, prediction, cond_bit) is
 begin
 if (a = '1') then
   rf_wr <= '0';

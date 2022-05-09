@@ -20,7 +20,7 @@ signal d:  std_logic:=((instruction_in(15)) and (not (instruction_in(14))) and (
            or ((instruction_in(15)) and (not (instruction_in(14))) and ((instruction_in(13))) and (not (instruction_in(12))));
 
 begin 
-process
+decode: process(instruction_in)
 begin
 if(a = '1') then
  sel1 <= '0'; --select Rb

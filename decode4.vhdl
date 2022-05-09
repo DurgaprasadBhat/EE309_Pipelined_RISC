@@ -34,7 +34,7 @@ signal f: std_logic:= ((instruction_in(15)) and (not(instruction_in(14))) and ((
 			 
 
 begin 
-process(instruction_in, cy, z, comp)
+decode: process(instruction_in, cy, z, comp) is
 begin
 if(b = '1') then
  op <= "011";
