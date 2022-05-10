@@ -16,7 +16,7 @@ begin
 out_process: process(en) is
 begin
 if(en = '1') then
-buff_en <= "00111";
+buff_en <= "00011";
 else
 buff_en <= "11111";
 end if;
