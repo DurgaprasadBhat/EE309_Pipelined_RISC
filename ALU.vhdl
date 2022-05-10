@@ -19,7 +19,7 @@ signal cin, zin: std_logic;
  NULL;
 
 elsif(op = "001") then
-  temp <= std_logic_vector(signed(operand1) + signed(operand2)); --signed Addition
+  temp <= std_logic_vector(signed(operand1(15) & operand1) + signed(operand2(15) & operand2)); --signed Addition
   cin <= temp(16);
   if(temp = "00000000000000000") then 
     zin <= '1';
@@ -30,7 +30,7 @@ elsif(op = "001") then
 elsif(op = "011") then
   op_temp(15 downto 1) <= operand2(14 downto 0);
   op_temp(0) <= '0';
-  temp <= std_logic_vector(signed(operand1) + signed(op_temp));
+  temp <= std_logic_vector(signed(operand1(15) & operand1) + signed(operand2(15) & op_temp));
   cin <= temp(16);
   if(temp = "00000000000000000") then 
     zin <= '1';
@@ -40,7 +40,7 @@ elsif(op = "011") then
 
 
 elsif(op = "101") then
-  temp <= operand1 nand operand2;
+  temp <= '0' & (operand1 nand operand2);
   cin <= temp(16);
   if(temp = "00000000000000000") then 
     zin <= '1';
@@ -52,7 +52,7 @@ elsif(op = "101") then
 elsif(op = "100") then
    op_temp(15 downto 7) <= operand1(8 downto 0 );
 	op_temp(6 downto 0) <= "0000000";
-	temp <= std_logic_vector(signed(operand2) + signed(op_temp));
+	temp <= std_logic_vector(signed(operand2(15) & operand2) + signed(op_temp(15) & op_temp));
    cin <= temp(16);
    if(temp = "00000000000000000") then 
      zin <= '1';
@@ -62,7 +62,7 @@ elsif(op = "100") then
 
 
 elsif(op = "010") then
-   temp <= std_logic_vector(signed(operand1) +1 );
+   temp <= std_logic_vector(signed(operand1(15) & operand1) +1 );
 	cin <= temp(16);
    if(temp = "00000000000000000") then 
      zin <= '1';
