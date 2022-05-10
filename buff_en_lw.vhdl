@@ -8,7 +8,7 @@ use ieee.numeric_std.all;
 --The output of this enable needs to be bitwise anded with other buffer stalling entities to get the\
 --final buffer enable bits.
 entity buff_en3 is
-port (en: in std_logic; clock : in std_logic_vector; buff_en: out std_logic_vector(4 downto 0));
+port (en: in std_logic; buff_en: out std_logic_vector(4 downto 0));
 end buff_en3;
 
 architecture behav of buff_en3 is
