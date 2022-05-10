@@ -9,7 +9,7 @@ port(operand1, operand2 : in std_logic_vector(15 downto 0); op: in std_logic_vec
  end ALU;
  
 architecture behav of ALU is 
-signal temp: std_logic_vector(16 downto 0) := "00000000000000000"; 
+signal temp: std_logic_vector(15 downto 0) := x"0000"; 
 signal op_temp : std_logic_vector(15 downto 0);
 signal cin, zin: std_logic;
  begin
@@ -19,57 +19,67 @@ signal cin, zin: std_logic;
  NULL;
 
 elsif(op = "001") then
-  temp <= std_logic_vector(signed(operand1(15) & operand1) + signed(operand2(15) & operand2)); --signed Addition
-  cin <= temp(16);
-  if(temp = "00000000000000000") then 
+  temp <= std_logic_vector(signed(operand1) + signed(operand2)); --signed Addition
+  if(temp = x"0000") then 
     zin <= '1';
   else 
     zin <= '0';
   end if;
+  
+  if ((operand1(15) xnor operand2(15)) and (operand1(15) xor temp(15))) = '1' then
+		cin <= '1';
+	else
+		cin <= '0';
+	end if;
 
 elsif(op = "011") then
   op_temp(15 downto 1) <= operand2(14 downto 0);
   op_temp(0) <= '0';
-  temp <= std_logic_vector(signed(operand1(15) & operand1) + signed(operand2(15) & op_temp));
-  cin <= temp(16);
-  if(temp = "00000000000000000") then 
+  temp <= std_logic_vector(signed(operand1) + signed(op_temp));
+  if(temp = x"0000") then 
     zin <= '1';
   else 
     zin <= '0';
   end if;
-
+	if ((operand1(15) xnor operand2(15)) and (operand1(15) xor temp(15))) = '1' then
+		cin <= '1';
+	else
+		cin <= '0';
+	end if;
 
 elsif(op = "101") then
-  temp <= '0' & (operand1 nand operand2);
-  cin <= temp(16);
-  if(temp = "00000000000000000") then 
+  temp <= (operand1 nand operand2);
+  if(temp = x"0000") then 
     zin <= '1';
   else 
     zin <= '0';
   end if;
+	cin <= '0';
 
 
 elsif(op = "100") then
    op_temp(15 downto 7) <= operand1(8 downto 0 );
 	op_temp(6 downto 0) <= "0000000";
-	temp <= std_logic_vector(signed(operand2(15) & operand2) + signed(op_temp(15) & op_temp));
-   cin <= temp(16);
-   if(temp = "00000000000000000") then 
+	temp <= std_logic_vector(signed(operand2) + signed(op_temp));
+   if(temp = x"0000") then 
      zin <= '1';
    else 
      zin <= '0';
    end if;
-
+	if ((operand2(15) xnor op_temp(15)) and (operand2(15) xor temp(15))) = '1' then
+		cin <= '1';
+	else
+		cin <= '0';
+	end if;
 
 elsif(op = "010") then
-   temp <= std_logic_vector(signed(operand1(15) & operand1) +1 );
-	cin <= temp(16);
-   if(temp = "00000000000000000") then 
+   temp <= std_logic_vector(signed(operand1) +1 );
+   if(temp = x"0000") then 
      zin <= '1';
    else 
      zin <= '0';
    end if;
-
+	cin <= temp(15) xor operand1(15);
 
 else
   NULL;
